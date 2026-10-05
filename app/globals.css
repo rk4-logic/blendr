@@ -1,0 +1,183 @@
+:root {
+  --bg-1: #0f1115;
+  --bg-2: #171a21;
+  --ink: #f4f2ec;
+  --sub: #9b9a94;
+  --accent: #ff8a3d;
+  --accent2: #6bd68c;
+  --glass: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 20% -10%, #23161233, transparent 40%),
+    linear-gradient(180deg, var(--bg-1), var(--bg-2));
+  color: var(--ink);
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.rail {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 6px 2px 16px;
+  scroll-snap-type: x mandatory;
+}
+.rail::-webkit-scrollbar { display: none; }
+
+.chip-card {
+  scroll-snap-align: start;
+  flex: 0 0 150px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s;
+}
+.chip-card.selected {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px -8px rgba(255, 138, 61, 0.5);
+}
+.chip-ico {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.glass-widget {
+  width: 84px;
+  height: 108px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 8px 8px 26px 26px;
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  flex-shrink: 0;
+}
+.glass-layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: height 0.4s ease;
+}
+
+.qty-stepper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 6px 10px;
+  width: fit-content;
+}
+.qty-stepper button {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: #1a1006;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.thickness-track {
+  height: 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+.thickness-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6bd68c, #ff8a3d);
+  transition: width 0.3s;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-40px) rotate(0deg); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(80px) rotate(80deg); opacity: 0; }
+}
+@keyframes swirl {
+  0% { transform: rotate(0deg) translateX(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: rotate(360deg) translateX(6px); opacity: 0; }
+}
+@keyframes drift-down {
+  0% { transform: translateY(-20px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(60px); opacity: 0; }
+}
+@keyframes drizzle-line {
+  0% { height: 0%; opacity: 0; }
+  20% { opacity: 1; }
+  100% { height: 100%; opacity: 0.9; }
+}
+
+.particle { position: absolute; font-size: 16px; pointer-events: none; }
+.particle.chunk { animation: fall 1.1s ease-in forwards; }
+.particle.powder { animation: swirl 1.3s ease-in-out forwards; }
+.particle.sprinkle { animation: drift-down 1s ease-in forwards; }
+.particle.drizzle {
+  width: 3px;
+  border-radius: 2px;
+  animation: drizzle-line 1s ease-in forwards;
+}
+
+.btn {
+  border: none;
+  border-radius: 16px;
+  padding: 14px 18px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+.btn-primary { background: var(--accent); color: #1a1006; }
+.btn-primary:disabled { background: #3a3733; color: #7a776f; }
+.btn-ghost { background: rgba(255, 255, 255, 0.08); color: var(--ink); }
+
+.step-track {
+  display: flex;
+  gap: 6px;
+}
+.step-track i {
+  flex: 1;
+  height: 4px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.step-track i.on { background: var(--accent); }
+
+.footer-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-2);
+  border-top: 1px solid var(--glass-border);
+  padding: 12px 18px calc(12px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  gap: 10px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+h1 { font-size: 22px; margin: 6px 0 4px; }
