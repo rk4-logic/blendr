@@ -44,8 +44,8 @@ blendr-app/
 ## 🚀 Getting started
 
 ```bash
-git clone <your-repo-url>
-cd blendr-app
+git clone https://github.com/rk4-logic/blendr.git
+cd blendr
 npm install
 cp .env.example .env.local      # paste in your MongoDB connection string
 npm run seed                    # loads starter fruits/liquids/add-ons
